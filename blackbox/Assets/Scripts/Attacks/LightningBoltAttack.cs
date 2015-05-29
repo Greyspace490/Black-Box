@@ -58,4 +58,14 @@ public override void Destroy(Vector3 pointOfImpact) { // Destroys the Lightning,
 	public override void setEffectiveness(effectiveness newEffectiveness){
 		effectiveness = newEffectiveness;
 	}
+
+	float wave = .1f;
+
+	void FixedUpdate(){
+
+			// Moves the lightning up and down like a wave.
+			wave = (Mathf.Sin(6f *Time.time)) * .05f;
+			transform.position = transform.position + new Vector3 (0, wave, 0);
+
+	}
 }

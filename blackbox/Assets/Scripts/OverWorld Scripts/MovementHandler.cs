@@ -5,11 +5,15 @@ public class MovementHandler : MonoBehaviour {
 
 	Chibi chibi; // The player's representation (what actually walks around the map.
 	Direction walkingState; // Enum representing the direction the player is walking (Direction.movingDown) or facing (Direction.down)
-	public int SpeedOfMovement; // Speed that the player moves.
+	public float SpeedOfMovement; // Speed that the player moves.
 	public bool canGoLeft; // Triggers that allow/disallow the player from going in any direction. This is updated by the nodes that the player lands on.
 	public bool canGoRight;
 	public bool canGoUp;
 	public bool canGoDown;
+	bool tempCanGoLeft; // Saves the walking state of the player to allow the disallowing of them from walking during dialogue.
+	bool tempCanGoRight;
+	bool tempCanGoUp;
+	bool tempCanGoDown;
 	
 	MovementHandler(){
 		walkingState = Direction.down; // Player starts off facing the camera.
@@ -27,8 +31,7 @@ public class MovementHandler : MonoBehaviour {
 
 		// Left
 		if ((Input.GetKeyDown (KeyCode.LeftArrow) || Input.GetKeyDown (KeyCode.A)) && canGoLeft) {
-			Debug.Log ("left");
-			chibi.GetComponent<Rigidbody2D> ().velocity = new Vector3 (-SpeedOfMovement, 0, 0);
+			chibi.GetComponent<Rigidbody2D> ().velocity = new Vector3 (-SpeedOfMovement, 0f, 0f);
 			walkingState = Direction.movingLeft;
 			canGoLeft = false;
 			canGoRight = false;
@@ -38,8 +41,7 @@ public class MovementHandler : MonoBehaviour {
 
 		// Right
 		if ((Input.GetKeyDown (KeyCode.RightArrow) | Input.GetKeyDown (KeyCode.D)) && canGoRight) {
-			Debug.Log ("right");
-			chibi.GetComponent<Rigidbody2D>().velocity = new Vector3(SpeedOfMovement, 0, 0);
+			chibi.GetComponent<Rigidbody2D>().velocity = new Vector3(SpeedOfMovement, 0f, 0f);
 			walkingState = Direction.movingRight;
 			canGoLeft = false;
 			canGoRight = false;
@@ -49,8 +51,7 @@ public class MovementHandler : MonoBehaviour {
 
 		// Up
 		if ((Input.GetKeyDown (KeyCode.UpArrow) || Input.GetKeyDown (KeyCode.W)) && canGoUp) {
-			Debug.Log ("up");
-			chibi.GetComponent<Rigidbody2D> ().velocity = new Vector3 (0, SpeedOfMovement, 0);
+			chibi.GetComponent<Rigidbody2D> ().velocity = new Vector3 (0f, SpeedOfMovement, 0f);
 			walkingState = Direction.movingUp;
 			canGoLeft = false;
 			canGoRight = false;
@@ -60,8 +61,7 @@ public class MovementHandler : MonoBehaviour {
 
 		// Down
 		if ((Input.GetKeyDown (KeyCode.DownArrow) || Input.GetKeyDown (KeyCode.S)) && canGoDown) {
-			Debug.Log ("down");
-			chibi.GetComponent<Rigidbody2D> ().velocity = new Vector3 (0, -SpeedOfMovement, 0);
+			chibi.GetComponent<Rigidbody2D> ().velocity = new Vector3 (0f, -SpeedOfMovement, 0f);
 			walkingState = Direction.movingDown;
 			canGoLeft = false;
 			canGoRight = false;
@@ -76,7 +76,7 @@ public class MovementHandler : MonoBehaviour {
 	}
 
 	// Allows other classes to see what speed Kayla is moving at.
-	public int getSpeedOfMovement(){
+	public float getSpeedOfMovement(){
 		return SpeedOfMovement;
 	}
 
@@ -101,5 +101,50 @@ public class MovementHandler : MonoBehaviour {
 		canGoUp = up;
 		canGoDown = down;
 	}
+
+	// The following returns the available directions the player is capable of moving.
+	public bool GetLeft(){
+		return canGoLeft;
+	}
+
+	public bool GetRight(){
+		return canGoRight;
+	}
+
+	public bool GetUp(){
+		return canGoUp;
+	}
+
+	public bool GetDown(){
+		return canGoDown;
+	}
+
+	public void setTempDirections(bool left, bool right, bool up, bool down){
+		tempCanGoLeft = left;
+		tempCanGoRight = right;
+		tempCanGoUp = up;
+		tempCanGoDown = down;
+	}
+
+	public bool GetTempLeft(){
+		return tempCanGoLeft;
+	}
+	
+	public bool GetTempRight(){
+		return tempCanGoRight;
+	}
+	
+	public bool GetTempUp(){
+		return tempCanGoUp;
+	}
+	
+	public bool GetTempDown(){
+		return tempCanGoDown;
+	}
+
+
+
+
+
 }
 

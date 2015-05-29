@@ -1,11 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DialogueHandler.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\OverWorld Scripts\MovementHandler.cs">
     <Files>
-      <File FileName="Assets\Scripts\OverWorld Scripts\EventManager.cs" Line="8" Column="31" />
-      <File FileName="Assets\Scripts\OverWorld Scripts\Node.cs" Line="83" Column="299" />
-      <File FileName="Assets\Scripts\Attacks\LightningBoltAttack.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\DialogueHandler.cs" Line="26" Column="138" />
+      <File FileName="Assets\Scripts\OverWorld Scripts\EventManager.cs" Line="12" Column="211" />
+      <File FileName="Assets\Scripts\OverWorld Scripts\MovementHandler.cs" Line="120" Column="3" />
+      <File FileName="Assets\Scripts\OverWorld Scripts\Node.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\DialogueHandler.cs" Line="152" Column="1" />
+      <File FileName="Assets\Scripts\_UnattachedScripts.cs" Line="30" Column="1" />
+      <File FileName="Assets\Scripts\ParticleChangeSortingLayer.cs" Line="11" Column="83" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

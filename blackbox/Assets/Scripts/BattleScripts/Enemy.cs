@@ -38,7 +38,13 @@ public class Enemy : MonoBehaviour {
 	public void placeAnimal() // Places the sprite of whatever animal is currently equipped in the location of the Enemy
 	{
 
-		Animal enemy = Instantiate (enemyAnimal, new Vector3 (7, 0, 0), Quaternion.Euler(0, 180, 0)) as Animal;
+		Animal enemy = Instantiate (enemyAnimal, new Vector3 (7, 0, 0), Quaternion.Euler(0, 0, 0)) as Animal;
+		enemy.transform.localScale += new Vector3(-2, 0, 0); 
+
+		// The following unparents the multiple animal followers so they are unaffected by attacks.
+		Transform enemyKids = enemy.GetComponent<Transform> ().GetChild (1);
+		enemyKids.tag = "EnemyKids";
+		enemyKids.transform.parent = this.transform;
 
 		enemy.tag = "EnemyAnimal";
 		enemy.transform.parent = this.transform; //Parents the animal to this object.

@@ -65,10 +65,14 @@
      <Compile Include="Assets\Scripts\BattleScripts\Timer.cs" />
      <Compile Include="Assets\Scripts\BattleScripts\UIHandler.cs" />
      <Compile Include="Assets\Scripts\DialogueHandler.cs" />
+     <Compile Include="Assets\Scripts\Fade.cs" />
+     <Compile Include="Assets\Scripts\IntroScreen.cs" />
      <Compile Include="Assets\Scripts\OverWorld Scripts\Chibi.cs" />
      <Compile Include="Assets\Scripts\OverWorld Scripts\EventManager.cs" />
      <Compile Include="Assets\Scripts\OverWorld Scripts\MovementHandler.cs" />
      <Compile Include="Assets\Scripts\OverWorld Scripts\Node.cs" />
+     <Compile Include="Assets\Scripts\ParticleChangeSortingLayer.cs" />
+     <Compile Include="Assets\Scripts\TitleScreen.cs" />
      <Compile Include="Assets\Scripts\_UnattachedScripts.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

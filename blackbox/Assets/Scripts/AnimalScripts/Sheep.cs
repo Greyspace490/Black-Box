@@ -6,6 +6,7 @@ public class Sheep : Animal {
 	public GameObject PlayerLocation; // The player object, used to determine where to instantiate lightningbolt.
 	public GameObject EnemyLocation; // The enemy object, used to determine where to instantiate lightningbolt.
 	public GameObject lightningbolt; // The lightningbolt attack object that will be summoned when Sheep attacks.
+	public AudioClip swish;
 	BattleMessageHandler messageHandler;
 
 	Sheep(){
@@ -19,13 +20,12 @@ public class Sheep : Animal {
 		speedModifiers = new float[3] {(float)Speed.normal, (float)Speed.vvfast, (float)Speed.vvslow};
 	}
 
-	void Awake(){
-
-
-	}
-
 	public override damageResults Attack(int parentPower, bool sentByPlayer)
 	{
+		AudioSource sfxPlayer = GameObject.FindWithTag ("SFX").GetComponent<AudioSource> ();
+		sfxPlayer.clip = swish;
+		sfxPlayer.Play ();
+
 		damageResults damageResults = new damageResults ();
 
 		if (sentByPlayer == false) { // The enemy is doing this attack.
@@ -41,7 +41,8 @@ public class Sheep : Animal {
 
 			return (damageResults);
 		}else { //The player is doing this attack.
-			GameObject projectileLightning = Instantiate (lightningbolt, PlayerLocation.transform.position, Quaternion.Euler (0, 180, 0)) as GameObject;
+			GameObject projectileLightning = Instantiate (lightningbolt, PlayerLocation.transform.position, Quaternion.Euler (0, 0, 0)) as GameObject;
+			projectileLightning.transform.localScale += new Vector3(-2, 0, 0); 
 			Attack projLight = projectileLightning.GetComponent<Attack>(); 
 
 			damageResults = CalculateDamage.Standard(parentPower, projLight.getElement(), sentByPlayer); // Gets a package that contains damage and effectiveness level of attack.

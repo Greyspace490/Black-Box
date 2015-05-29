@@ -12,13 +12,10 @@ public class BattleHandler : MonoBehaviour {
 	public Player player;
 	public Enemy enemy;
 	public Text menuHPCurrent;
-	public Text menuHPMax;
 
 	void Start(){ // Set up the battle field with all of the elements that are unique to this battle.
 
-		menuHPCurrent.text = System.Convert.ToString(player.getHPMax()) + " / "; //Set the UI to the player's current HP and max HP
-		menuHPMax.text = System.Convert.ToString(player.getHPMax());
-
+		menuHPCurrent.text = System.Convert.ToString(player.getHPMax()) + " / " + player.getHPMax(); //Set the UI to the player's current HP and max HP
 
 		player.placeAnimal(); // Initialize sprites of animals
 		enemy.placeAnimal ();
@@ -76,7 +73,7 @@ public class BattleHandler : MonoBehaviour {
 			StartCoroutine (messageHandler.showDamage (attack.getDamage (), true));
 
 			player.alterHP (attack.getDamage ()); // Remove amount of HP from player.
-			menuHPCurrent.text = System.Convert.ToString (player.getHPCurrent ()) + " / ";
+			menuHPCurrent.text = System.Convert.ToString (player.getHPCurrent ()) + " / " + player.getHPMax();
 		} else { // If the enemy is hit, send to MessageHandler and alter their HP.
 
 			StartCoroutine (messageHandler.showDamage (attack.getDamage (), false));

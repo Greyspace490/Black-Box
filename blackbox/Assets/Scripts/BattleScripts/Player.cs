@@ -85,6 +85,11 @@ public class Player : MonoBehaviour {
 	{
 		Animal player = Instantiate (myAnimal, new Vector3 (-6.5f, 0, 0), Quaternion.identity) as Animal;
 
+		// The following unparents the multiple animal followers so they are unaffected by attacks.
+		Transform playerKids = player.GetComponent<Transform> ().GetChild (1);
+		playerKids.tag = "PlayerKids";
+		playerKids.transform.parent = this.transform;
+
 		player.tag = "PlayerAnimal";
 		player.transform.parent = this.transform; //Parents the animal to this object.
 
