@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class UIHandler : MonoBehaviour {
 
-	public Button attack;
+	public Button attack; // Attack buttons for the player.
 	public Button attack2;
 	public Button attack3;
 	public Button attack4;
@@ -64,9 +64,9 @@ public class UIHandler : MonoBehaviour {
 	}
 
 	public void refreshButtons(){ // Unhides all buttons that the player's animal allows, and names those buttons.
-		int buttons = player.checkButtons ();
+		int buttons = player.checkAttacks ();
 
-		switch (buttons) {
+		switch (buttons) { //Unhides buttons.
 		case 4:
 			attack4.gameObject.SetActive (true);
 			goto case 3;
@@ -81,7 +81,7 @@ public class UIHandler : MonoBehaviour {
 			break;
 		}
 	
-		switch (buttons){
+		switch (buttons){ // Names buttons
 		case 4:
 			attack4.GetComponentInChildren<Text>().text = player.getAttackNames(4); 
 			goto case 3;

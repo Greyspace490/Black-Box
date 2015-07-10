@@ -26,9 +26,9 @@ public static class CalculateDamage{
 		if (effectiveness == effectiveness.regular) {
 			multiplier = 1f;
 		} else if (effectiveness == effectiveness.strong) {
-			multiplier = 1.5f;
+			multiplier = 3f;
 		} else {
-			multiplier = .5f;
+			multiplier = .25f;
 		}
 
 		if (enemyDefense < 0) // Make sure that a negative defense does not add to the damage score.

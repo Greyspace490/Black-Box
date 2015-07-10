@@ -21,9 +21,9 @@ public class TitleScreen : MonoBehaviour {
 	}
 
 	IEnumerator StartGame(){ // Fades to black.
-		float fadeTime = GetComponent<Fade>().BeginFade (1);
+		float fadeTime = GetComponent<FadeOut>().BeginFade (1);
 		yield return new WaitForSeconds(fadeTime);
-		Application.LoadLevel(4);
+		Application.LoadLevel(3);
 	}
 
 	IEnumerator Pause(int x){ // Pauses for x amount of seconds.

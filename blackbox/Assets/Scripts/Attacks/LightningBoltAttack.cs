@@ -8,6 +8,7 @@ using System.Collections;
 public class LightningBoltAttack : Attack {
 
 	public GameObject particleEffects; // Particle effects to be left after attack strikes its target.
+	float wave = .1f; // Changes the size of the wave that the lightning moves in.
 
 	public LightningBoltAttack(){ // Sets attack as a projectile.
 		damage = 0;
@@ -58,8 +59,6 @@ public override void Destroy(Vector3 pointOfImpact) { // Destroys the Lightning,
 	public override void setEffectiveness(effectiveness newEffectiveness){
 		effectiveness = newEffectiveness;
 	}
-
-	float wave = .1f;
 
 	void FixedUpdate(){
 

@@ -15,11 +15,15 @@ public abstract class Animal : MonoBehaviour {
 	protected element element; // The element, if any, that the animal represents.
 	protected string[] attackNames;// An array with all attack names listed.
 	protected float[] speedModifiers; // An array with the speed modifiers for each attack listed.
+	protected Color actualColor; // The color of the animal sprite, to be used in fading the animal if it dies.
 
 	// Attack power is based on the power of the parent, which may be higher than the animal. Returns 
 	// damageResults, which is a struct that keeps the damage done by an attack as well as whether the
 	// attack was effective.
 	abstract public damageResults Attack(int parentPower, bool sentByPlayer); // Standard attack held by all animals.
+
+	//float value;
+
 
 	virtual public damageResults Attack2(int parentPower, bool sentByPlayer){ // Secondary attack, if applicable.
 		damageResults noResults = new damageResults(0, effectiveness.weak);
@@ -69,5 +73,37 @@ public abstract class Animal : MonoBehaviour {
 
 	public virtual element getElement(){
 		return element;
+	}
+
+	// When an animal dies, it fades out of existence.
+	public virtual IEnumerator Dead(){ 
+		for (float f = 1f; f >= 0; f -= 0.008f) { // f -= controls the speed of the fade
+			actualColor = GetComponent<SpriteRenderer> ().color;
+			actualColor.a = f;
+			GetComponent<SpriteRenderer> ().color = actualColor;
+			yield return null;
+		}
+	}
+
+	// Flash is used to flash the animal that is attacking just before the attack is initialized.
+	public virtual IEnumerator Flash(){ 
+		Color white; // Pure white.
+		Color original; // Original color of animal sprite.
+		actualColor = GetComponent<SpriteRenderer> ().color; // Color of the animal.
+
+		original = actualColor;
+
+		white.r = 255; // Color to flash to (Red)
+		white.b = 0;
+		white.g = 0;
+		white.a = 255;
+	
+		for (float f = 1f; f >= 0; f -= 0.5f) { // f -= controls the speed of the fade
+			yield return new WaitForSeconds(.01f);
+			GetComponent<SpriteRenderer> ().color = white;
+			yield return new WaitForSeconds(.02f);
+			GetComponent<SpriteRenderer> ().color = original;
+			yield return new WaitForSeconds(.01f);
+		}
 	}
 }

@@ -26,6 +26,17 @@ public static class Portrait{ // Constants for use of posting portraits with the
 	public const string Calvert = @"Portraits/PortraitCalvert";
 	public const string Kayla = @"Portraits/PortraitKayla";
 	public const string Quinn = @"Portraits/PortraitQuinn";
+	public const string Jay = @"Portraits/PortraitJay";
+	public const string Cordero = @"Portraits/PortraitCordero";
+	public const string Simab = @"Portraits/PortraitSimab";
+
+	// Second version, flipped horizontally
+	public const string CalvertF = @"Portraits/PortraitCalvert2";
+	public const string KaylaF = @"Portraits/PortraitKayla2";
+	public const string QuinnF = @"Portraits/PortraitQuinn2";
+	public const string JayF = @"Portraits/PortraitJay2";
+	public const string CorderoF = @"Portraits/PortraitCordero2";
+	public const string SimabF = @"Portraits/PortraitSimab2";
 }
 
 public enum element{ // Elements for use with attack resistance.

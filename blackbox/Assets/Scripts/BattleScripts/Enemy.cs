@@ -7,18 +7,23 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-	public Animal enemyAnimal;
 	public BattleHandler battleHandler;
-		
+	public int hpCurrent;
 	public int hpMax;
 	public int power;
 	public int defense;
 	public int speed;
-	public int hpCurrent;
 	public string animalName;
 	public element element;
+
+	Animal enemyAnimal;
+	Save save;
 	
 	void Awake(){ //Sets Enemy states to that of the animal he/she is equipped with.
+
+		// The following retreives the animal stored in Save.
+		save = (GameObject.FindGameObjectWithTag("Save").GetComponent<Save>()) as Save;
+		enemyAnimal = save.getEnemyAnimal ();
 
 		hpMax = enemyAnimal.getHPMax();
 		power = enemyAnimal.getPower();
@@ -30,9 +35,71 @@ public class Enemy : MonoBehaviour {
 		//Add Weak against enum and strong against enum as collections and Evade
 	}
 
-	public void BasicAttack () // Standard attack
-	{
+	public void BasicAttack (){ // Standard attack
+
+		StartCoroutine (PauseBasicAttack());
+	}
+
+	public IEnumerator PauseBasicAttack(){
+		Animal currentAnimal = (GameObject.FindWithTag ("EnemyAnimal").GetComponent<Animal> ()) as Animal;
+		
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+		
+		yield return new WaitForSeconds (.5f);
+		
 		enemyAnimal.Attack (power, false);
+	}
+
+	public void Attack2 (){ // Second attack
+
+		StartCoroutine (PauseAttack2());
+
+	}
+
+	public IEnumerator PauseAttack2(){
+		Animal currentAnimal = (GameObject.FindWithTag ("EnemyAnimal").GetComponent<Animal> ()) as Animal;
+		
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+		
+		yield return new WaitForSeconds (.5f);
+		
+		enemyAnimal.Attack2 (power, false);
+	}
+	
+	public void Attack3 () // Third attack
+	{
+		StartCoroutine (PauseAttack3());
+	
+	}
+
+	public IEnumerator PauseAttack3(){
+		Animal currentAnimal = (GameObject.FindWithTag ("EnemyAnimal").GetComponent<Animal> ()) as Animal;
+		
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+		
+		yield return new WaitForSeconds (.5f);
+		
+		enemyAnimal.Attack3 (power, false);
+	}
+	
+	public void Attack4 () // Fourth attack
+	{
+		StartCoroutine (PauseAttack4());
+
+	}
+
+	public IEnumerator PauseAttack4(){
+		Animal currentAnimal = (GameObject.FindWithTag ("EnemyAnimal").GetComponent<Animal> ()) as Animal;
+		
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+		
+		yield return new WaitForSeconds (.5f);
+		
+		enemyAnimal.Attack4 (power, false);
+	}
+
+	public int checkAttacks(){ // Checks to see how many attacks the equipped animal has to place buttons.
+		return enemyAnimal.numberOfAttacks ();
 	}
 
 	public void placeAnimal() // Places the sprite of whatever animal is currently equipped in the location of the Enemy
@@ -49,6 +116,10 @@ public class Enemy : MonoBehaviour {
 		enemy.tag = "EnemyAnimal";
 		enemy.transform.parent = this.transform; //Parents the animal to this object.
 				
+	}
+
+	public float getAttackSpeedMultiplier (int i){ // Direct method that gets the player's animal's different attack speeds for modifying timer speeds in the timer class.
+		return enemyAnimal.getAttackSpeedMultiplier (i);
 	}
 
 	public int getHPMax() {

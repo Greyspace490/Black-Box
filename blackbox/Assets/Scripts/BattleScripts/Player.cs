@@ -7,18 +7,24 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	
-	public Animal myAnimal;
 	public BattleHandler battleHandler;
-
+	public int hpCurrent;
 	public int hpMax;
 	public int power;
 	public int defense;
 	public int speed;
-	public int hpCurrent;
 	public string animalName;
 	public element element;
 
+	Animal myAnimal;
+	Save save;
+
 	void Awake(){ //Sets Player states to that of the animal he/she is equipped with.
+
+		// The following retreives the animal stored in Save.
+		save = (GameObject.FindGameObjectWithTag("Save").GetComponent<Save>()) as Save;
+		myAnimal = save.getPlayerAnimal ();
+
 
 		hpMax = myAnimal.getHPMax();
 		power = myAnimal.getPower();
@@ -29,44 +35,84 @@ public class Player : MonoBehaviour {
 		element = myAnimal.getElement ();
 		//Add Weak against enum and strong against enum as collections and Evade
 	}
-
-
-
+	
 	public void BasicAttack () // Standard attack
 	{
 
-		myAnimal.Attack (power, true);
-	
-		//The following resets the player's timer after the attack commences.
+		StartCoroutine (PauseBasicAttack());
+
+	}
+
+	public IEnumerator PauseBasicAttack(){
+		//The following resets the player's timer
 		var timerObject = GameObject.FindWithTag ("Timer").GetComponent<Timer>();
 		timerObject.ResetTimer (1);
+
+		Animal currentAnimal = (GameObject.FindWithTag ("PlayerAnimal").GetComponent<Animal> ()) as Animal;
+
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+
+		yield return new WaitForSeconds (.5f);
+
+		myAnimal.Attack (power, true);
 	}
 
 	public void Attack2 () // Standard attack
 	{
-		myAnimal.Attack2 (power, true);
+		StartCoroutine (PauseAttack2());
+	}
 
-		//The following resets the player's timer after the attack commences.
+	public IEnumerator PauseAttack2(){
+		//The following resets the player's timer
 		var timerObject = GameObject.FindWithTag ("Timer").GetComponent<Timer>();
 		timerObject.ResetTimer (2);
+
+		Animal currentAnimal = (GameObject.FindWithTag ("PlayerAnimal").GetComponent<Animal> ()) as Animal;
+		
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+		
+		yield return new WaitForSeconds (.5f);
+		
+		myAnimal.Attack2 (power, true);
 	}
 
-	public void Attack3 () // Standard attack
-	{
-		myAnimal.Attack3 (power, true);
+	public void Attack3 (){ // Standard attack
 
-		//The following resets the player's timer after the attack commences.
+		StartCoroutine (PauseAttack3());
+
+	}
+
+	public IEnumerator PauseAttack3(){
+		//The following resets the player's timer
 		var timerObject = GameObject.FindWithTag ("Timer").GetComponent<Timer>();
 		timerObject.ResetTimer (3);
+
+		Animal currentAnimal = (GameObject.FindWithTag ("PlayerAnimal").GetComponent<Animal> ()) as Animal;
+		
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+		
+		yield return new WaitForSeconds (.5f);
+		
+		myAnimal.Attack3 (power, true);
 	}
 
-	public void Attack4 () // Standard attack
-	{
-		myAnimal.Attack4 (power, true);
+	public void Attack4 (){ // Standard attack
 
-		//The following resets the player's timer after the attack commences.
+		StartCoroutine (PauseAttack4());
+	}
+
+	public IEnumerator PauseAttack4(){
+		//The following resets the player's timer
 		var timerObject = GameObject.FindWithTag ("Timer").GetComponent<Timer>();
 		timerObject.ResetTimer (4);
+
+		Animal currentAnimal = (GameObject.FindWithTag ("PlayerAnimal").GetComponent<Animal> ()) as Animal;
+		
+		currentAnimal.StartCoroutine(currentAnimal.Flash());
+		
+		yield return new WaitForSeconds (.5f);
+		
+		myAnimal.Attack4 (power, true);
 	}
 
 	public string getAttackNames (int i){ // Direct method that accesses the player's animal's attack names for naming the attack GUI buttons.
@@ -77,7 +123,7 @@ public class Player : MonoBehaviour {
 		return myAnimal.getAttackSpeedMultiplier (i);
 	}
 
-	public int checkButtons(){ // Checks to see how many attacks the equipped animal has to place buttons.
+	public int checkAttacks(){ // Checks to see how many attacks the equipped animal has to place buttons.
 		return myAnimal.numberOfAttacks ();
 	}
 
@@ -106,7 +152,10 @@ public class Player : MonoBehaviour {
 
 	public void alterHP(int num)
 	{
-		hpCurrent = hpCurrent + num;
+		if (hpCurrent + num < 0)
+			hpCurrent = 0;
+		else
+			hpCurrent = hpCurrent + num;
 	}
 	
 	public int getPower(){

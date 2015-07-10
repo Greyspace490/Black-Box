@@ -14,6 +14,7 @@ public class Fade : MonoBehaviour {
 	private float alpha = 1.0f;     // The alpha of the texture.
 	private int fadeDirection = -1; // -1 = fade in, 1 = fade out.
 
+
 	void OnGUI() {
 
 		// Force the number between 0 and 1 because GUI.color uses alphas between 1 and 0.
@@ -26,6 +27,11 @@ public class Fade : MonoBehaviour {
 	}
 
 	public float BeginFade (int direction){
+		fadeDirection = direction;
+		return (fadeSpeed); // Returns fade speed to allow for timing.
+	}
+
+	public float BeginFade (int direction, bool useSecondFadeColor){
 		fadeDirection = direction;
 		return (fadeSpeed); // Returns fade speed to allow for timing.
 	}
